@@ -1,26 +1,38 @@
 package me.smithy.alloy;
 
+import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
-public abstract class BaseAlloy {
+public class BaseAlloy {
 	
-	private final String alloyName;
+	private final String displayName;
 	private final ItemStack mixedItem;
+	private final ItemStack ingot;
 	
 	public BaseAlloy(String alloyName, ItemStack mixedItem) {
-		this.alloyName = alloyName;
+		this.displayName = alloyName;
 		this.mixedItem = mixedItem.clone();
+		this.ingot = createIngot();
 	}
 	
 	public ItemStack getMixedItem() {
 		return mixedItem.clone();
 	}
 	
-	public String getAlloyName() {
-		return alloyName;
+	public String getDisplayName() {
+		return displayName;
 	}
 	
-	public ItemStack getAlloyItem() {
-		return null;
+	public ItemStack getIngot() {
+		return ingot.clone();
+	}
+	
+	private ItemStack createIngot() {
+		ItemStack ingot = new ItemStack(Material.NETHERITE_INGOT);
+		ItemMeta meta = ingot.getItemMeta();
+		meta.setDisplayName(displayName);
+		ingot.setItemMeta(meta);
+		return ingot;
 	}
 }

@@ -1,9 +1,14 @@
 package me.smithy;
 
+import me.smithy.alloy.BaseAlloy;
+import me.smithy.alloy.RecipeRegistry;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import me.smithy.main.MainListener;
@@ -23,12 +28,15 @@ public class NetherriteSmithy extends JavaPlugin {
 		saveDefaultConfig();
 		getServer().getPluginManager().registerEvents(new MainListener(), this);
 		
+		createAlloys();
 	}
 	
 	@Override
 	public void onDisable() {
 	
-	
 	}
 	
+	private void createAlloys() {
+		RecipeRegistry.registerAlloy(new BaseAlloy(ChatColor.GOLD + "Golderite", new ItemStack(Material.GOLD_INGOT)), this);
+	}
 }
