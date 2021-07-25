@@ -2,6 +2,8 @@ package me.smithy;
 
 import me.smithy.alloy.BaseAlloy;
 import me.smithy.alloy.RecipeRegistry;
+import java.util.Locale;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -37,6 +39,11 @@ public class NetherriteSmithy extends JavaPlugin {
 	}
 	
 	private void createAlloys() {
-		RecipeRegistry.registerAlloy(new BaseAlloy(ChatColor.GOLD + "Golderite", new ItemStack(Material.GOLD_INGOT)), this);
+//		RecipeRegistry.registerAlloy(new BaseAlloy(ChatColor.GOLD + "Golderite", new ItemStack(Material.GOLD_INGOT)), this);
 	}
+	
+	public String getNamespace() {
+		return plugin.getName().toLowerCase(Locale.ROOT);
+	}
+	
 }

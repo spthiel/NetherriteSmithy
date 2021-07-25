@@ -1,17 +1,21 @@
 package me.smithy.alloy;
 
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import me.smithy.NetherriteSmithy;
 
-public class BaseAlloy {
+public abstract class BaseAlloy {
 	
 	private final String displayName;
 	private final ItemStack mixedItem;
 	private final ItemStack ingot;
+	private final NamespacedKey namespacedKey;
 	
 	public BaseAlloy(String alloyName, ItemStack mixedItem) {
 		this.displayName = alloyName;
+		this.namespacedKey = new NamespacedKey(NetherriteSmithy.plugin, displayName);
 		this.mixedItem = mixedItem.clone();
 		this.ingot = createIngot();
 	}
@@ -34,5 +38,9 @@ public class BaseAlloy {
 		meta.setDisplayName(displayName);
 		ingot.setItemMeta(meta);
 		return ingot;
+	}
+	
+	public NamespacedKey getNamespacedKey() {
+		return namespacedKey;
 	}
 }
