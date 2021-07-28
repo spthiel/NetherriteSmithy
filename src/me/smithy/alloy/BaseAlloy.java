@@ -1,5 +1,6 @@
 package me.smithy.alloy;
 
+import me.smithy.framework.SmithyItems;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -16,7 +17,6 @@ public abstract class BaseAlloy {
 	
 	public BaseAlloy(JavaPlugin plugin, String alloyName, ItemStack mixedItem) {
 		this.displayName = alloyName;
-//		this.namespacedKey = new NamespacedKey(NetherriteSmithy.plugin, displayName);
 		this.namespacedKey = new NamespacedKey(plugin, stripString(displayName));
 		this.mixedItem = mixedItem.clone();
 		this.ingot = createIngot();
@@ -39,7 +39,7 @@ public abstract class BaseAlloy {
 		ItemMeta meta = ingot.getItemMeta();
 		meta.setDisplayName(displayName);
 		ingot.setItemMeta(meta);
-		return ingot;
+		return SmithyItems.makeSmithyItem(ingot, this);
 	}
 	
 	public NamespacedKey getNamespacedKey() {
@@ -48,5 +48,10 @@ public abstract class BaseAlloy {
 	
 	private static String stripString(String itemName) {
 		return ChatColor.stripColor(itemName).toLowerCase().replace(" ", "_");
+	}
+	
+	@Override
+	public String toString() {
+		return displayName;
 	}
 }

@@ -40,6 +40,7 @@ public class NetherriteSmithy extends JavaPlugin {
 	}
 	
 	private void createAlloys() {
+		RecipeRegistry.reset();
 //		RecipeRegistry.registerAlloy(new BaseAlloy(ChatColor.GOLD + "Golderite", new ItemStack(Material.GOLD_INGOT)), this);
 		RecipeRegistry.registerAlloy(new Golderite(this));
 	}

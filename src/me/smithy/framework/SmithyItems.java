@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import me.smithy.alloy.RecipeRegistry;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
@@ -53,6 +54,8 @@ public class SmithyItems {
 		ItemMeta  meta   = cloned.getItemMeta();
 		assert meta != null;
 		
+		meta.setDisplayName(alloy.getDisplayName());
+		
 		var container = meta.getPersistentDataContainer();
 		container.set(BASE, PersistentDataType.BYTE, (byte) 1);
 		short count = container.getOrDefault(alloy.getNamespacedKey(), PersistentDataType.SHORT, (short)0);
@@ -61,18 +64,15 @@ public class SmithyItems {
 		return cloned;
 	}
 	
-	
-	
-	private static Map<BaseAlloy, Integer> getAppliedAlloys(PersistentDataContainer container) {
+	public static Map<BaseAlloy, Integer> getAppliedAlloys(PersistentDataContainer container) {
 		var keys = container.getKeys();
 		var out = new HashMap<BaseAlloy, Integer>();
 		String pluginNamespace = NetherriteSmithy.plugin.getNamespace();
+
 		for (var key : keys) {
 			if (key.getNamespace().equals(pluginNamespace)) {
 				
-				List<BaseAlloy> allAlloys = null; //TODO: Get all alloys
-				
-				for (var alloy : allAlloys) {
+				for (var alloy : RecipeRegistry.REGISTERED_ALLOYS) {
 					if (alloy.getNamespacedKey().equals(key)) {
 						out.put(alloy, container.getOrDefault(key, PersistentDataType.INTEGER, 1));
 						break;
@@ -80,12 +80,10 @@ public class SmithyItems {
 				}
 			}
 		}
-		
 		return out;
 	}
 	
 	public static boolean isSmithyItem(ItemStack stack) {
-		
 		return stack != null && stack.getItemMeta() != null && stack.getItemMeta()
 																	.getPersistentDataContainer()
 																	.has(BASE, PersistentDataType.BYTE);
