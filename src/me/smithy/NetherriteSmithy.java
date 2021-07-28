@@ -1,6 +1,7 @@
 package me.smithy;
 
 import me.smithy.alloy.BaseAlloy;
+import me.smithy.alloy.Golderite;
 import me.smithy.alloy.RecipeRegistry;
 import java.util.Locale;
 
@@ -40,6 +41,7 @@ public class NetherriteSmithy extends JavaPlugin {
 	
 	private void createAlloys() {
 //		RecipeRegistry.registerAlloy(new BaseAlloy(ChatColor.GOLD + "Golderite", new ItemStack(Material.GOLD_INGOT)), this);
+		RecipeRegistry.registerAlloy(new Golderite(this));
 	}
 	
 	public String getNamespace() {
