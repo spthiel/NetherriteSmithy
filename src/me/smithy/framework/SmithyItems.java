@@ -1,5 +1,9 @@
 package me.smithy.framework;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
@@ -55,6 +59,29 @@ public class SmithyItems {
 		container.set(alloy.getNamespacedKey(), PersistentDataType.SHORT, (short)(count+1));
 		cloned.setItemMeta(meta);
 		return cloned;
+	}
+	
+	
+	
+	private static Map<BaseAlloy, Integer> getAppliedAlloys(PersistentDataContainer container) {
+		var keys = container.getKeys();
+		var out = new HashMap<BaseAlloy, Integer>();
+		String pluginNamespace = NetherriteSmithy.plugin.getNamespace();
+		for (var key : keys) {
+			if (key.getNamespace().equals(pluginNamespace)) {
+				
+				List<BaseAlloy> allAlloys = null; //TODO: Get all alloys
+				
+				for (var alloy : allAlloys) {
+					if (alloy.getNamespacedKey().equals(key)) {
+						out.put(alloy, container.getOrDefault(key, PersistentDataType.INTEGER, 1));
+						break;
+					}
+				}
+			}
+		}
+		
+		return out;
 	}
 	
 	public static boolean isSmithyItem(ItemStack stack) {
