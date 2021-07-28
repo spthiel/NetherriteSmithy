@@ -17,6 +17,8 @@ import org.bukkit.event.player.PlayerItemBreakEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.SmithingInventory;
 
+import me.smithy.framework.ArmorListener;
+
 public class MainListener implements Listener {
 	
 	@EventHandler
@@ -106,10 +108,12 @@ public class MainListener implements Listener {
 	public void onFoodLevelChange(FoodLevelChangeEvent event) {
 	
 	}
+
+	private static final ArmorListener armorListener = new ArmorListener();
 	
 	@EventHandler
 	public void onInventoryClick(InventoryClickEvent event) {
-	
+		armorListener.inventoryClick(event);
 	}
 	
 	@EventHandler

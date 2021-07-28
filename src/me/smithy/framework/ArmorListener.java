@@ -3,6 +3,7 @@ package me.smithy.framework;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.inventory.PlayerInventory;
 
 public class ArmorListener {
 	
@@ -11,18 +12,41 @@ public class ArmorListener {
 			return;
 		}
 		
-		System.out.println(event.getClick());
-		return;
+		if (event.getAction().equals(InventoryAction.NOTHING)) {
+			return;
+		}
 		
-//		if (event.getAction().equals(InventoryAction.NOTHING)) {
-//			return;
-//		}
-//
-//		if (event.getClick().equals(ClickType.SHIFT_LEFT) || event.getClick().equals(ClickType.SHIFT_RIGHT)) {
-//			processShiftClick(event);
-//		} else if (event.getClick().equals(ClickType.NUMBER_KEY)) {
-//
-//		}
+		if (!(event.getInventory() instanceof PlayerInventory)) {
+			return;
+		}
+
+		var clickType = event.getClick();
+		
+		switch (clickType) {
+			case SHIFT_LEFT:
+			case SHIFT_RIGHT:
+				processShiftClick(event);
+				break;
+			case NUMBER_KEY:
+			case SWAP_OFFHAND:
+				processSlotClick(event);
+				break;
+			case DROP:
+			case CONTROL_DROP:
+				processDrop(event);
+				break;
+			case DOUBLE_CLICK:
+			case LEFT:
+			case RIGHT:
+			case CREATIVE:
+				processClick(event);
+				break;
+			case MIDDLE:
+			case WINDOW_BORDER_LEFT:
+			case WINDOW_BORDER_RIGHT:
+			case UNKNOWN:
+				return;
+		}
 		
 	}
 	
@@ -30,7 +54,11 @@ public class ArmorListener {
 	
 	}
 	
-	private void processNumberClick(InventoryClickEvent event) {
+	private void processSlotClick(InventoryClickEvent event) {
+	
+	}
+	
+	private void processDrop(InventoryClickEvent event) {
 	
 	}
 	
