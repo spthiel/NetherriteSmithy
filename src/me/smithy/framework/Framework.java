@@ -35,7 +35,7 @@ public class Framework {
 		
 		ItemStack stack = event.getBrokenItem();
 		
-		if (!isSmityItem(stack)) {
+		if (!isSmithyItem(stack)) {
 			return;
 		}
 		
@@ -59,7 +59,7 @@ public class Framework {
 	
 	}
 	
-	public ItemStack makeSmityItem(ItemStack stack, BaseAlloy alloy) {
+	public ItemStack makeSmithyItem(ItemStack stack, BaseAlloy alloy) {
 		
 		if (stack.getType()
 				 .equals(Material.AIR)) {
@@ -87,10 +87,12 @@ public class Framework {
 			}
 		}
 		
+		//TODO: Rename Smithy to Smithy
+		
 		return null;
 	}
 	
-	private boolean isSmityItem(ItemStack stack) {
+	private boolean isSmithyItem(ItemStack stack) {
 		
 		return stack != null && stack.getItemMeta() != null && stack.getItemMeta()
 																	.getPersistentDataContainer()
